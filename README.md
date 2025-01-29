@@ -1,80 +1,43 @@
-# Matrix Inversion using an MLP
+# Understanding the Problem
 
-This project implements a Multi-Layer Perceptron (MLP) to approximate
-the matrix inversion function. The goal is to train a neural network to take an invertible matrix as input and predict its inverse.
+I am training a Multi-Layer Perceptron (MLP) to approximate the matrix inversion function:
 
-## Learning Objectives
+$f(A) = A^(-1)$
 
-- Neural network function approximation
-- Handling structures data (matrices)
-- Optimization and loss functions in deep learning
+Where A is an ‘n $x$ n’ invertible matrix
+The model takes A as input and predicts $A^(-1)$ as output
 
----
+#### To train this model, I need:
 
-## Installation
+- A dataset (random invertible matrices + their inverses)
+- A neural network model to learn the function
+- A loss function to measure how well the model is learning
+- An optimizer to adjust the model’s parameters during training
 
-### Clone the Repository
+# Generating the Dataset
 
-```sh
-git clone https://github.com/anishbanda/matrix_inversion_MLP.git
-cd matrix_inversion_MLP
+#### Before building the MLP, first generate the dataset consisting of:
 
-```
+- Random invertible matrices as input
+- Their inverses as output
 
----
+A function that generates random invertible matrices and their corresponding inverses:
+**Steps**
 
-## Understanding the MLP
-
-### 1. Problem Definition
-
-The goal is to train an MLP to learn the function:
-$f(A) = A^{-1}$
-where A is an n $x$ n invertible matrix.
-
-### 2. Neural Network Architecture
-
-- **Input Layer**: Flattened matrix of size $n^2$
-- **Hidden Layers**: Fully connected layers with ReLU activations
-- **Output Layer**: Flattened inverse matrix of size $n^2$
-- **Loss Function**: Mean Squared Error (MSE)
-- **Optimizer**: Adam
-
-## Training the Model
-
-Run the training script with:
+- Generate a random ‘n x n’ matrix using NumPy
+- Check if it’s invertible (i.e., det(A) != 0)
+- Compute its inverse using np.linalg.inv(A)
+- Store both the matrix and its inverse.
 
 ```sh
-python train.py
+def generateData(numSamples, n):
+    matrixList = []
+    for i in range(numSamples):
+        randMatrix = np.random.randn(n, n)
+        if (np.linalg.det(randMatrix) != 0):
+            invMatrix = np.linalg.inv(randMatrix)
+        randMatrix = randMatrix.flatten()
+        invMatrix = invMatrix.flatten()
+        matrix =[randMatrix, invMatrix]
+        matrixList.append(matrix)
 ```
-
-This will:
-
-- Generate random invertible matrices
-- Train the MLP using PyTorch
-- Save the trained model for future use
-
----
-
-## Testing the Model
-
-Once trained, you can test the model with:
-
-```sh
-python test.py
-```
-
-This script:
-
-- Loads a trained MLP
-- Generates a random matrix
-- Predicts its inverse
-- Compares it with the actual inverse
-
----
-
-## Future Improvements
-
-- Improve accuracy for larger matrices
-- Experiment with different activation functions
-- Test different loss functions
-- Try CNNs or Transformer-based architectures for structured data
