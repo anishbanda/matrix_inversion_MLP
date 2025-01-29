@@ -2,7 +2,7 @@
 
 I am training a Multi-Layer Perceptron (MLP) to approximate the matrix inversion function:
 
-$f(A) = A^(-1)$
+$f(A) = A^-1$
 
 Where A is an ‘n $x$ n’ invertible matrix
 The model takes A as input and predicts $A^(-1)$ as output
