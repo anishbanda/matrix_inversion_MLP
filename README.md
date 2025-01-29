@@ -3,7 +3,7 @@
 This project implements a Multi-Layer Perceptron (MLP) to approximate
 the matrix inversion function. The goal is to train a neural network to take an invertible matrix as input and predict its inverse.
 
-##Learning Objectives
+## Learning Objectives
 
 - Neural network function approximation
 - Handling structures data (matrices)
