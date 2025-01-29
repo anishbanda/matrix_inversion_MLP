@@ -29,7 +29,7 @@ cd matrix_inversion_MLP
 
 The goal is to train an MLP to learn the function:
 $f(A) = A^{-1}$
-where A is an $n x n$ invertible matrix.
+where A is an n $x$ n invertible matrix.
 
 ### 2. Neural Network Architecture
 
