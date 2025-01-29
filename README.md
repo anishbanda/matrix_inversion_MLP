@@ -29,13 +29,13 @@ cd matrix_inversion_MLP
 
 The goal is to train an MLP to learn the function:
 $f(A) = A^{-1}$
-where A is an 'n x n' invertible matrix.
+where A is an $n x n$ invertible matrix.
 
 ### 2. Neural Network Architecture
 
-- **Input Layer**: Flattened matrix of size 'n^2'
+- **Input Layer**: Flattened matrix of size $n^2$
 - **Hidden Layers**: Fully connected layers with ReLU activations
-- **Output Layer**: Flattened inverse matrix of size 'n^2'
+- **Output Layer**: Flattened inverse matrix of size $n^2$
 - **Loss Function**: Mean Squared Error (MSE)
 - **Optimizer**: Adam
 
