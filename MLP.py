@@ -29,7 +29,7 @@ class MLP(nn.Module):
 # Testing the model with dummy input
 n = 3 # Matrix size (n x n)
 input_size = n * n
-hidden_size = 128
+hidden_size = 256
 output_size = n * n
 
 model = MLP(input_size, hidden_size, output_size)
