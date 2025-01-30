@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from MLP import MLP # Import trained model class
-from main import generateData, preprocessData # Import data functions
+from data import generateData, preprocessData # Import data functions
 from train import model, scaler_x, scaler_y # Import trained model and scalers
 
 # Step 1: Generate and Preprocess Test Data

@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from MLP import MLP # Import the MLP model
-from main import generateData, preprocessData # Import data functions
+from data import generateData, preprocessData # Import data functions
 
 # Step 1: Load Data
 n = 3 # Matrix size (n x n)
