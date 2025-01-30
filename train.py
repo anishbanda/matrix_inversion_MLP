@@ -31,6 +31,7 @@ output_size = n * n
 model = MLP(input_size, hidden_size, output_size)
 criterion = nn.MSELoss() # Mean Squared Loss
 optimizer = optim.Adam(model.parameters(), lr=0.001) # Adam Optimizer
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.5)
 
 # Step 3: Training Loop
 epochs = 300
@@ -58,11 +59,13 @@ for epoch in range(epochs):
         
         total_loss += loss.item()
         
+    scheduler.step() # Adjust learning rate
+        
     # Print loss every 10 epochs
     if (epoch + 1) % 10 == 0:
         
         avg_loss = total_loss / len(train_loader)
-        print(f"Epoch [{epoch+1}/{epochs}], Loss: {avg_loss:.6f}")
+        print(f"Epoch [{epoch+1}/{epochs}], Loss: {avg_loss:.6f}, LR: {scheduler.get_last_lr()}")
         
 print("Training Complete!")
         
