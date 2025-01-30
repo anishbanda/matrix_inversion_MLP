@@ -1,7 +1,7 @@
 import numpy as np # type: ignore
 
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split # type: ignore
+from sklearn.preprocessing import StandardScaler # type: ignore
 
 def generateData(num_samples, n):
     
