@@ -33,7 +33,7 @@ criterion = nn.MSELoss() # Mean Squared Loss
 optimizer = optim.Adam(model.parameters(), lr=0.001) # Adam Optimizer
 
 # Step 3: Training Loop
-epochs = 300 # Changed from 50 to 300
+epochs = 300
 batch_size = 64
 
 # Convert dataset to PyTorch DataLoader for batch processing
