@@ -1,6 +1,6 @@
-import torch # type: ignore
-from torch import torch.nn as nn # type: ignore
-from torch import torch.optim as optim # type: ignore
+import torch
+import torch.nn as nn
+import torch.optim as optim
 
 class MLP(nn.Module):
     
@@ -10,9 +10,9 @@ class MLP(nn.Module):
         
         # Define fully connected layers
         self.fc1 = nn.Linear(input_size, hidden_size) # First hidden layer
-        self.fc2 = nn.Linear(input_size, hidden_size) # Second hidden layer
-        self.fc3 = nn.Linear(input_size, hidden_size) # Third hidden layer
-        self.fc4 = nn.Linear(input_size, output_size) # Output layer
+        self.fc2 = nn.Linear(hidden_size, hidden_size) # Second hidden layer
+        self.fc3 = nn.Linear(hidden_size, hidden_size) # Third hidden layer
+        self.fc4 = nn.Linear(hidden_size, output_size) # Output layer
         
         # Define activation function
         self.relu = nn.ReLU()

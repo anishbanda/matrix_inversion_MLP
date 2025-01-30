@@ -1,7 +1,7 @@
-import numpy as np # type: ignore
+import numpy as np
 
-from sklearn.model_selection import train_test_split # type: ignore
-from sklearn.preprocessing import StandardScaler # type: ignore
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 def generateData(num_samples, n):
     
@@ -43,7 +43,7 @@ x, y = generateData(1000, 3)
 x_train, x_test, y_train, y_test, scaler_x, scaler_y = preprocessData(x, y)
 
 # Print Sample Outputs
-print("Matrix Train Data:", x_train)
-print("Matrix Test Data:", x_test)
-print("Inverse Train Data:", y_train)
-print("Inverse Test Data:", y_test)
+print("Matrix Train Data:", x_train[0])
+print("Matrix Test Data:", x_test[0])
+print("Inverse Train Data:", y_train[0])
+print("Inverse Test Data:", y_test[0])
