@@ -166,3 +166,106 @@ class MLP(nn.Module):
 
         return x
 ```
+
+# Training the MLP
+
+**Steps**
+
+- Load preprocessed data from `main.py`
+- Define loss function (Mean Squared Error)
+- Choose optimizer (Adam optimizer)
+- Set up training loop:
+  1. Forward pass: Predict matrix inverses
+  2. Compute the loss
+  3. Backpropagate the gradients
+  4. Update model parameters
+- Monitor training performances using loss values
+
+## Loading the Preprocessed Data
+
+Import data from `main.py` using the `generateData()` and `preprocessData()` functions
+
+## Define the Training Setup
+
+Loss Function:
+
+```sh
+criterion = nn.MSELoss()
+```
+
+Since this is a regression task, use MSE loss.
+
+Optimizer
+
+```sh
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+```
+
+Adam optimizer is common for neural networks
+Learning Rate (`lr`) controls how much the model updates its weights.
+
+## Implement the Training Loop
+
+Training epoch performs the following:
+
+- Forward pass: Feed input `x_train` into the MLP
+- Compute the loss between predicted and actual inverses
+- Backward pass: Compute gradients
+- Update weights using optimizer
+- Print loss every few epochs to monitor progress
+
+# Evaluate the MLP
+
+**Steps**
+
+- Load trained model from `train.py`
+- Use test dataset (x_test, y_test) to predict matrix inverses
+- Calculate the Mean Squared Error (MSE) and other metrics
+- Compare the predicted v.s. actual inverse matrices
+
+## Load the Trained Model
+
+Since the model is already trained in `train.py`,
+
+- Load `x_test` and `y_test`
+- Run predictions on `x_test`
+- Compare with `y_test`
+
+## Implement Evaluation Script
+
+**Steps**
+
+1. Generates fresh test data using `generateData` and `preprocessData`
+2. Runs the trained model on `x_test` to predict inverses
+3. Computes the MSE to evaluate performance
+4. Displays matrices
+   - Original matrix (input)
+   - Actual inverse (y)
+   - Predicted inverse (ouput)
+
+# Improve the MLP
+
+#### Train for More Epochs
+
+Right now, the model is trained for 50 epochs
+I will increase it to 200-300 to see if it improves
+
+#### Increase Hidden Layer Size
+
+I will increase the hidden layer size from 128 to 256
+This will help the model learn more complex relationships
+
+#### Add More Hidden Layers
+
+Instead of 3 hidden layers, I will add 5
+This will help the network learn deeper representations
+
+#### Experiment with Different Activations
+
+I will try LeakyReLU instead of ReLU
+LeakyReLU allows small negative values, which might improve learning
+
+#### Use Learning Rate Scheduling
+
+I will reduce the learning rate to 0.0005 after a certain amount of epochs
+This will help fine-tune learning
