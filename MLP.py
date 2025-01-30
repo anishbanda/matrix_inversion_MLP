@@ -17,7 +17,7 @@ class MLP(nn.Module):
         self.fc6 = nn.Linear(hidden_size, output_size) # Output layer
         
         # Define activation function
-        self.relu = nn.ReLU()
+        self.relu = nn.LeakyReLU(negative_slope=0.01) # Allows small negative values
         
     def forward(self, x):
         
