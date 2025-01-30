@@ -21,7 +21,7 @@ def generateData(num_samples, n):
 
 def preprocessData(x, y):
     # Split into training and test sets
-    x_train, x_test, y_test, y_train = train_test_split(x, y, test_size=0.2, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
     # Normalize data
     scaler_x = StandardScaler()
