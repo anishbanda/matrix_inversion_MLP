@@ -1,6 +1,6 @@
-import torch
-import torch.nn as nn
-import torch.optim as optim
+import torch # type: ignore
+from torch import torch.nn as nn # type: ignore
+from torch import torch.optim as optim # type: ignore
 
 class MLP(nn.Module):
     
