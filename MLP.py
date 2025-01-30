@@ -12,7 +12,9 @@ class MLP(nn.Module):
         self.fc1 = nn.Linear(input_size, hidden_size) # First hidden layer
         self.fc2 = nn.Linear(hidden_size, hidden_size) # Second hidden layer
         self.fc3 = nn.Linear(hidden_size, hidden_size) # Third hidden layer
-        self.fc4 = nn.Linear(hidden_size, output_size) # Output layer
+        self.fc4 = nn.Linear(hidden_size, hidden_size) # Fourth hidden layer
+        self.fc5 = nn.Linear(hidden_size, hidden_size) # Fifth hidden layer
+        self.fc6 = nn.Linear(hidden_size, output_size) # Output layer
         
         # Define activation function
         self.relu = nn.ReLU()
@@ -22,7 +24,9 @@ class MLP(nn.Module):
         x = self.relu(self.fc1(x)) # Apply ReLU to first hidden layer
         x = self.relu(self.fc2(x)) # Apply ReLU to second hidden layer
         x = self.relu(self.fc3(x)) # Apply ReLU to third hidden layer
-        x = self.fc4(x) # Output layer (no activation)
+        x = self.relu(self.fc4(x)) # Apply ReLU to fourth hidden layer
+        x = self.relu(self.fc5(x)) # Apply ReLU to fifth hidden layer
+        x = self.fc6(x) # Output layer (no activation
         
         return x
     
