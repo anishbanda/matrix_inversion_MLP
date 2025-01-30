@@ -30,16 +30,21 @@ A function that generates random invertible matrices and their corresponding inv
 - Store both the matrix and its inverse.
 
 ```sh
-def generateData(numSamples, n):
-    matrixList = []
-    for i in range(numSamples):
-        randMatrix = np.random.randn(n, n)
-        if (np.linalg.det(randMatrix) != 0):
-            invMatrix = np.linalg.inv(randMatrix)
-        randMatrix = randMatrix.flatten()
-        invMatrix = invMatrix.flatten()
-        matrix =[randMatrix, invMatrix]
-        matrixList.append(matrix)
+def generateData(num_samples, n):
+
+    matrices = []
+    inverses = []
+
+    while len(matrices) < num_samples:
+        A = np.random.randn(n, n) # Generate random matrix
+        try:
+            A_inv = np.linalg.inv(A) # Attempt to invert
+            matrices.append(A.flatten()) # Store as flattened array
+            inverses.append(A_inv.flatten()) # Store inverse as flattened array
+        except np.linalg.LinAlgError:
+            pass
+
+    return np.array(matrices, dtype=np.float32), np.array(inverses, dtype=np.float32)
 ```
 
 # What Does Preprocessing Involve?
@@ -59,6 +64,25 @@ $X' = {X - μ}/σ$
 Where μ is the mean and σ is the standard deviation of the dataset
 
 This ensures that the values are well-distributed and help the network converge faster
+
+```sh
+def preprocessData(x, y):
+    # Split into training and test sets
+    x_train, x_test, y_test, y_train = train_test_split(x, y, test_size=0.2, random_state=42)
+
+    # Normalize data
+    scaler_x = StandardScaler()
+    scaler_y = StandardScaler()
+
+    x_train = scaler_x.fit_transform(x_train)
+    x_test = scaler_x.transform(x_test) # Use same scaler fitted on training data
+
+    y_train = scaler_y.fit_transform(y_train)
+    y_test = scaler_y.transform(y_test)
+
+    # Return the processed data and scalers
+    return x_train, x_test, y_train, y_test, scaler_x, scaler_y
+```
 
 # Building the MLP
 
@@ -116,3 +140,29 @@ Optimizer:
 - Initialize the layers in the constructor `(__init__)`
 - Define the forward pass in `forward(self, x)`
 - Ensure the model works on sample data before training
+
+```sh
+class MLP(nn.Module):
+
+    def __init__(self, input_size, hidden_size, output_size):
+
+        super(MLP, self).__init__()
+
+        # Define fully connected layers
+        self.fc1 = nn.Linear(input_size, hidden_size) # First hidden layer
+        self.fc2 = nn.Linear(input_size, hidden_size) # Second hidden layer
+        self.fc3 = nn.Linear(input_size, hidden_size) # Third hidden layer
+        self.fc4 = nn.Linear(input_size, output_size) # Output layer
+
+        # Define activation function
+        self.relu = nn.ReLU()
+
+    def forward(self, x):
+
+        x = self.relu(self.fc1(x)) # Apply ReLU to first hidden layer
+        x = self.relu(self.fc2(x)) # Apply ReLU to second hidden layer
+        x = self.relu(self.fc3(x)) # Apply ReLU to third hidden layer
+        x = self.fc4(x) # Output layer (no activation)
+
+        return x
+```
