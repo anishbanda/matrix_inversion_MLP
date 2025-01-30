@@ -31,7 +31,7 @@ output_size = n * n
 model = MLP(input_size, hidden_size, output_size)
 criterion = nn.MSELoss() # Mean Squared Loss
 optimizer = optim.Adam(model.parameters(), lr=0.001) # Adam Optimizer
-scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.5)
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.8)
 
 # Step 3: Training Loop
 epochs = 300
