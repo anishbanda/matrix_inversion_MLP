@@ -6,7 +6,7 @@ from data import generateData, preprocessData # Import data functions
 
 # Step 1: Load Data
 n = 3 # Matrix size (n x n)
-num_samples = 10000 # Number of matrices
+num_samples = 100000 # Number of matrices
 
 # Generate and preprocess data
 x, y = generateData(num_samples, n)
@@ -68,4 +68,3 @@ for epoch in range(epochs):
         print(f"Epoch [{epoch+1}/{epochs}], Loss: {avg_loss:.6f}, LR: {scheduler.get_last_lr()}")
         
 print("Training Complete!")
-        
