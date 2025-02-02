@@ -29,7 +29,7 @@ def preprocessData(x, y):
 x, y = generateData(1000, 3)
 
 # Preprocess Data
-x_train, x_test, y_train, y_test, scaler_x, scaler_y = preprocessData(x, y)
+x_train, x_test, y_train, y_test = preprocessData(x, y)
 
 # Print Sample Outputs
 print("Matrix Train Data:", x_train[0])
