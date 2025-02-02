@@ -25,7 +25,7 @@ y_test_tensor = torch.tensor(y_test, dtype=torch.float32)
 
 #Step 2: Initialize Model, Loss, and Optimizer
 input_size = n * n
-hidden_size = 128
+hidden_size = 256
 output_size = n * n
 
 model = MLP(input_size, hidden_size, output_size)
