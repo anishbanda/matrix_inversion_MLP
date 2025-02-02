@@ -3,14 +3,14 @@ import torch.nn as nn
 import numpy as np
 from MLP import MLP # Import trained model class
 from data import generateData, preprocessData # Import data functions
-from train import model, scaler_x, scaler_y # Import trained model and scalers
+from train import model # Import trained model and scalers
 
 # Step 1: Generate and Preprocess Test Data
 n = 3 # Matrix size (n x n)
 num_test_samples = 100000 # Number of test samples
 
 x, y = generateData(num_test_samples, n)
-x_train, x_test, y_train, y_test, scaler_x, scaler_y = preprocessData(x, y)
+x_train, x_test, y_train, y_test = preprocessData(x, y)
 
 # Convert test data to PyTorch tensors
 x_test_tensor = torch.tensor(x_test, dtype=torch.float32)
