@@ -10,7 +10,7 @@ num_samples = 100000 # Number of matrices
 
 # Generate and preprocess data
 x, y = generateData(num_samples, n)
-x_train, x_test, y_train, y_test, scaler_x, scaler_y = preprocessData(x, y)
+x_train, x_test, y_train, y_test = preprocessData(x, y)
 
 # Check shapes of 'x_train' and 'y_train'
 print(f"x_train shape: {x_train.shape}")
@@ -30,7 +30,7 @@ output_size = n * n
 
 model = MLP(input_size, hidden_size, output_size)
 criterion = nn.L1Loss()
-optimizer = optim.Adam(model.parameters(), lr=0.0001, weight_decay=1e-5) # Adam Optimizer
+optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5) # Adam Optimizer
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.8)
 
 # Step 3: Training Loop
