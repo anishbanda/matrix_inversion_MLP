@@ -9,7 +9,8 @@ def generateData(num_samples, n):
     while len(matrices) < num_samples:
         A = np.random.randn(n, n) # Generate random matrix
         try:
-            A_inv = np.linalg.inv(A) # Attempt to invert
+            if np.abs(np.linalg.det(A)) > 1e-5:
+                A_inv = np.linalg.inv(A) # Attempt to invert
             matrices.append(A.flatten()) # Store as flattened array
             inverses.append(A_inv.flatten()) # Store inverse as flattened array
         except np.linalg.LinAlgError:
