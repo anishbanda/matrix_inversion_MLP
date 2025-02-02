@@ -30,7 +30,7 @@ output_size = n * n
 
 model = MLP(input_size, hidden_size, output_size)
 criterion = nn.SmoothL1Loss()
-optimizer = optim.Adam(model.parameters(), lr=0.0005, weight_decay=1e-5) # Adam Optimizer
+optimizer = optim.Adam(model.parameters(), lr=0.0003) # Adam Optimizer
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.8)
 
 # Early stopping values
