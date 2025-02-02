@@ -29,15 +29,15 @@ class MLP(nn.Module):
         
     def forward(self, x):
         
-        x = F.leaky_relu(self.fc1(x))
+        x = F.leaky_relu(self.bn1(self.fc1(x)))
         x = self.dropout(x)
-        x = F.leaky_relu(self.fc2(x))
+        x = F.leaky_relu(self.bn2(self.fc2(x)))
         x = self.dropout(x) 
-        x = F.leaky_relu(self.fc3(x))
+        x = F.leaky_relu(self.bn3(self.fc3(x)))
         x = self.dropout(x)
-        x = F.leaky_relu(self.fc4(x))
+        x = F.leaky_relu(self.bn4(self.fc4(x)))
         x = self.dropout(x)
-        x = F.leaky_relu(self.fc5(x))
+        x = F.leaky_relu(self.bn5(self.fc5(x)))
         x = self.fc6(x)
         
         return x
