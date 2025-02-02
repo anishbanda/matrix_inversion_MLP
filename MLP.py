@@ -18,26 +18,26 @@ class MLP(nn.Module):
         self.fc6 = nn.Linear(hidden_size, output_size) # Output layer
         
         # Batch Normalization Layers
-        self.bn1 = nn.BatchNorm1d(hidden_size)
-        self.bn2 = nn.BatchNorm1d(hidden_size)
-        self.bn3 = nn.BatchNorm1d(hidden_size)
-        self.bn4 = nn.BatchNorm1d(hidden_size)
-        self.bn5 = nn.BatchNorm1d(hidden_size)
+        # self.bn1 = nn.BatchNorm1d(hidden_size)
+        # self.bn2 = nn.BatchNorm1d(hidden_size)
+        # self.bn3 = nn.BatchNorm1d(hidden_size)
+        # self.bn4 = nn.BatchNorm1d(hidden_size)
+        # self.bn5 = nn.BatchNorm1d(hidden_size)
         
         # Dropout layer to reduce overfitting
         self.dropout = nn.Dropout(0.2) 
         
     def forward(self, x):
         
-        x = F.leaky_relu(self.bn1(self.fc1(x)))
+        x = F.leaky_relu(self.fc1(x))
         x = self.dropout(x)
-        x = F.leaky_relu(self.bn2(self.fc2(x)))
+        x = F.leaky_relu(self.fc2(x))
         x = self.dropout(x) 
-        x = F.leaky_relu(self.bn3(self.fc3(x)))
+        x = F.leaky_relu(self.fc3(x))
         x = self.dropout(x)
-        x = F.leaky_relu(self.bn4(self.fc4(x)))
+        x = F.leaky_relu(self.fc4(x))
         x = self.dropout(x)
-        x = F.leaky_relu(self.bn5(self.fc5(x)))
+        x = F.leaky_relu(self.fc5(x))
         x = self.fc6(x)
         
         return x
