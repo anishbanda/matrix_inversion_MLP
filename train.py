@@ -33,6 +33,11 @@ criterion = nn.L1Loss()
 optimizer = optim.Adam(model.parameters(), lr=0.0005, weight_decay=1e-5) # Adam Optimizer
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.8)
 
+# Early stopping values
+best_loss = float('inf')
+patience = 20
+trigger_times = 0
+
 # Step 3: Training Loop
 epochs = 300
 batch_size = 64
@@ -61,11 +66,23 @@ for epoch in range(epochs):
         total_loss += loss.item()
         
     scheduler.step() # Adjust learning rate
+    
+    # Calculate average loss per epoch
+    avg_loss = total_loss / len(train_loader)
         
     # Print loss every 10 epochs
     if (epoch + 1) % 10 == 0:
         
-        avg_loss = total_loss / len(train_loader)
         print(f"Epoch [{epoch+1}/{epochs}], Loss: {avg_loss:.6f}, LR: {scheduler.get_last_lr()}")
+        
+    # Early Stopping Check
+    if avg_loss < best_loss:
+        best_loss = avg_loss
+        trigger_times = 0 # Reset patience counter when improvement occurs
+    else:
+        trigger_times += 1
+        if trigger_times >= patience:
+            print(f"Early stopping triggered at epoch {epoch + 1}")
+            break
         
 print("Training Complete!")
