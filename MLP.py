@@ -17,7 +17,15 @@ class MLP(nn.Module):
         self.fc5 = nn.Linear(hidden_size, hidden_size) # Fifth hidden layer
         self.fc6 = nn.Linear(hidden_size, output_size) # Output layer
         
-        self.dropout = nn.Dropout(0.2) # Dropout to reduce overfitting
+        # Batch Normalization Layers
+        self.bn1 = nn.BatchNorm1d(hidden_size)
+        self.bn2 = nn.BatchNorm1d(hidden_size)
+        self.bn3 = nn.BatchNorm1d(hidden_size)
+        self.bn4 = nn.BatchNorm1d(hidden_size)
+        self.bn5 = nn.BatchNorm1d(hidden_size)
+        
+        # Dropout layer to reduce overfitting
+        self.dropout = nn.Dropout(0.2) 
         
     def forward(self, x):
         
