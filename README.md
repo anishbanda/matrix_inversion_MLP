@@ -242,3 +242,27 @@ Since the model is already trained in `train.py`,
    - Original matrix (input)
    - Actual inverse (y)
    - Predicted inverse (ouput)
+
+# Issues with the MLP
+
+**Model Fails to Generalize for Matrix Inversion**
+
+The MLP model shows signs of overfitting. Despite improvements in architecture (adding layers, dropout, and learning rate scheduling), the model:
+
+- Fails to reduce the test MSE below 1.0
+- Predicts inverse matrices that are far from actual values
+- Training loss plateaus without significant improvements.
+
+**Root Cause Analysis**
+
+1. Model Capacity Issues
+
+- The MLP may not capture the complex non-linear relationship required for matrix inversion
+
+2. Data Preprocessing
+
+- Normalization with `StandardScaler` may distort matrix properties critical for inversion
+
+3. Optimization Challenges
+
+- High learning rates and lack of regularization could prevent proper convergence
