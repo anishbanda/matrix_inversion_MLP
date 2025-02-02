@@ -7,7 +7,7 @@ from train import model, scaler_x, scaler_y # Import trained model and scalers
 
 # Step 1: Generate and Preprocess Test Data
 n = 3 # Matrix size (n x n)
-num_test_samples = 2000 # Number of test samples
+num_test_samples = 100000 # Number of test samples
 
 x, y = generateData(num_test_samples, n)
 x_train, x_test, y_train, y_test, scaler_x, scaler_y = preprocessData(x, y)
@@ -45,4 +45,3 @@ for i in range(num_samples_to_display):
     print(actual_inverse)
     print("\nPredicted Inverse")
     print(predicted_inverse)
-    

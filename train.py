@@ -34,7 +34,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5) # Adam O
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.8)
 
 # Step 3: Training Loop
-epochs = 300
+epochs = 100
 batch_size = 64
 
 # Convert dataset to PyTorch DataLoader for batch processing
