@@ -1,13 +1,13 @@
 # Understanding the Problem
 
-I am training a Multi-Layer Perceptron (MLP) to approximate the matrix inversion function:
+In order to train a Multi-Layer Perceptron (MLP) to approximate the matrix inversion function:
 
 $f(A) = A^{-1}$
 
 Where A is an ‘n $x$ n’ invertible matrix
 The model takes A as input and predicts $A^{-1}$ as output
 
-#### To train this model, I need:
+#### To train this model, you need:
 
 - A dataset (random invertible matrices + their inverses)
 - A neural network model to learn the function
@@ -119,13 +119,13 @@ Using ReLU (Rectified Linear Unit) for hidden layers because:
 - Helps prevent vanishing gradient problem
 - Allows model to learn complex non-linear mappings
 
-The output layer **does not use an activation function** because this is a **regression problem**, and we want raw continuous values.
+The output layer **does not use an activation function** because this is a **regression problem**, and you want raw continuous values.
 
 ## Select the Loss Function & Optimizer
 
 Loss Function:
 
-- Use Mean Squared Error (MSE) becuase we are performing regression
+- Use Mean Squared Error (MSE) because you are performing regression
 - MSE penalizes large errors more than small ones
 
 Optimizer:
