@@ -30,11 +30,11 @@ output_size = n * n
 
 model = MLP(input_size, hidden_size, output_size)
 criterion = nn.L1Loss()
-optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5) # Adam Optimizer
+optimizer = optim.Adam(model.parameters(), lr=0.0005, weight_decay=1e-5) # Adam Optimizer
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.8)
 
 # Step 3: Training Loop
-epochs = 100
+epochs = 300
 batch_size = 64
 
 # Convert dataset to PyTorch DataLoader for batch processing
