@@ -1,7 +1,5 @@
 import numpy as np
-
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 
 def generateData(num_samples, n):
     
@@ -22,19 +20,9 @@ def generateData(num_samples, n):
 def preprocessData(x, y):
     # Split into training and test sets
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
-
-    # Normalize data
-    scaler_x = StandardScaler()
-    scaler_y = StandardScaler()
     
-    x_train = scaler_x.fit_transform(x_train)
-    x_test = scaler_x.transform(x_test) # Use same scaler fitted on training data
-    
-    y_train = scaler_y.fit_transform(y_train)
-    y_test = scaler_y.transform(y_test)
-    
-    # Return the processed data and scalers
-    return x_train, x_test, y_train, y_test, scaler_x, scaler_y
+    # Return the processed data
+    return x_train, x_test, y_train, y_test
 
 # Generate Data
 x, y = generateData(1000, 3)
