@@ -55,6 +55,7 @@ for epoch in range(epochs):
         loss = criterion(outputs, batch_y) # Compute loss
         
         loss.backward() # Backpropagation
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
         optimizer.step() # Update weights
         
         total_loss += loss.item()
