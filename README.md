@@ -266,3 +266,25 @@ The MLP model shows signs of overfitting. Despite improvements in architecture (
 3. Optimization Challenges
 
 - High learning rates and lack of regularization could prevent proper convergence
+
+**Potential Solutions to Implement**
+
+1. Remove Data Normalization
+
+- Preserve the raw scle of matrix values to maintain mathematical integrity
+
+2. Switch to Mean Absolute Error (MAE) from MSE
+
+- Use `nn.L1Loss()` instead of MSE for more stable optimization
+
+3. Reduce Learning Rate
+
+- Lower the learning rate to `0.0001` for finer updates
+
+4. Add Batch Normalization
+
+- Apply batch normalization after each linear layer to stabilize training
+
+5. Ensure Matrix Invertibility
+
+- Add determinant checks when generating matrices to avoid singular cases
