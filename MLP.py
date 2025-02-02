@@ -12,7 +12,8 @@ class MLP(nn.Module):
         # Define fully connected layers
         self.fc1 = nn.Linear(input_size, hidden_size) # First hidden layer
         self.fc2 = nn.Linear(hidden_size, hidden_size) # Second hidden layer
-        self.fc3 = nn.Linear(hidden_size, output_size) # Output layer
+        self.fc3 = nn.Linear(hidden_size, hidden_size) # Third hidden layer
+        self.fc4 = nn.Linear(hidden_size, output_size) # Output layer
         
         # Batch Normalization Layers
         # self.bn1 = nn.BatchNorm1d(hidden_size)
@@ -26,11 +27,16 @@ class MLP(nn.Module):
         
     def forward(self, x):
         
+        residual = x # Save the input for residual connection
+        
         x = F.leaky_relu(self.fc1(x))
         x = self.dropout(x)
         x = F.leaky_relu(self.fc2(x))
         x = self.dropout(x) 
-        x = self.fc3(x)
+        x = F.leaky_relu(self.fc3(x))
+        x = self.fc4(x)
+        
+        x += residual
         
         return x
     
