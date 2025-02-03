@@ -26,6 +26,8 @@ def generateData(num_samples, n, condition_number_range=(1, 10)):
         return np.array(matrices, dtype=np.float32), np.array(inverses, dtype=np.float32)
     
 def preprocessData(x, y):
+    if (len(x) < 5):
+        raise ValueError("Not enough samples for splitting. Check data generation")
     # Split into training and test sets
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
     
