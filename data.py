@@ -13,6 +13,7 @@ def generateData(num_samples, n):
                 A_inv = np.linalg.inv(A) # Attempt to invert
                 matrices.append(A.flatten()) # Store as flattened array
                 inverses.append(A_inv.flatten()) # Store inverse as flattened array
+            else: pass
         except np.linalg.LinAlgError:
             pass
         
