@@ -38,8 +38,8 @@ model = MLP(input_size, hidden_size, output_size)
 criterion = nn.SmoothL1Loss(reduction='mean')
 
 # Custom warmup + cosine annealing scheduler
-optimizer = optim.Adam(model.parameters(), lr=initial_lr, weight_decay=1e-6)
-scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=50, T_mult=2)
+optimizer = optim.Adam(model.parameters(), lr=1e-4, weight_decay=1e-8)
+scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)
 
 # Early stopping values
 best_loss = float('inf')
@@ -62,8 +62,8 @@ for epoch in range(epochs):
     
     total_loss = 0.0
     
-    if (epoch % 50 == 0) and (epoch != 0) and (batch_size < max_batch_size):
-        batch_size = min(batch_size * 2, max_batch_size)
+    if (epoch % 100 == 0) and (epoch != 0) and (batch_size < 128):
+        batch_size = min(batch_size * 2, 128)
         train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
         print(f"Batch size increased to {batch_size} at epoch {epoch + 1}")
     
