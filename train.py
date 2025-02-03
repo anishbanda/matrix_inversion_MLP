@@ -68,7 +68,7 @@ for phase_idx, phase in enumerate(curriculum):
         print("Reducing batch size and epochs due to limited data")
         phase['batch_size'] = min(phase['batch_size'], 32)
         phase['epochs'] = 100
-        patience = 20
+        patience = 50
     
     x_train, x_test, y_train, y_test = preprocessData(x, y)
     
