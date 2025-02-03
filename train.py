@@ -43,7 +43,7 @@ scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=50, T_mult=2)
 
 # Early stopping values
 best_loss = float('inf')
-patience = 20
+patience = 50
 trigger_times = 0
 
 # Step 3: Training Loop
