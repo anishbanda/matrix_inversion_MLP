@@ -43,8 +43,8 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)
 # Curriculum difficulty levels
 curriculum = [
     {"condition_range": (1, 30), "epochs": 100, "batch_size": 64}, # Easy
-    {"condition_range": (30, 100), "epochs": 100, "batch_size": 128}, # Medium
-    {"condition_range": (100, 300), "epochs": 100, "batch_size": 256} # Hard
+    {"condition_range": (20, 150), "epochs": 100, "batch_size": 128}, # Medium
+    {"condition_range": (130, 300), "epochs": 100, "batch_size": 256} # Hard
 ]
 
 # Early stopping values
