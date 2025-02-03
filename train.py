@@ -63,6 +63,8 @@ for phase_idx, phase in enumerate(curriculum):
     # Generate data for the current phase
     x, y = generateData(num_samples, n, condition_number_range=phase['condition_range'])
     
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=phase['epochs'])
+    
     if len(x_train) < 5000:
         
         print("Reducing batch size and epochs due to limited data")
