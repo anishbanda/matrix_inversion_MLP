@@ -25,8 +25,13 @@ def generateData(num_samples, n, condition_number_range=(1, 10), max_attempts=10
         attempts += 1
         
     if len(matrices) < num_samples:
-        print(f"Warning: Only {len(matrices)} samples generated after {attempts} attempts")
-            
+        
+        augmented_data = np.vstack([matrices, np.flip(matrices, axis=1)])[:num_samples]
+        augmented_inverses = np.vstack([inverses, np.flip(inverses, axis=1)])[:num_samples]
+        print(f"Augmented data to {len(augmented_data)} samples")
+        
+        return augmented_data, augmented_inverses
+        
     return np.array(matrices, dtype=np.float32), np.array(inverses, dtype=np.float32)
     
 def preprocessData(x, y):
