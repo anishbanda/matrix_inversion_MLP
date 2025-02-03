@@ -27,6 +27,15 @@ def generateData(num_samples, n, condition_number_range=(1, 10), max_attempts=10
     if len(matrices) < num_samples:
         print(f"Warning: Only {len(matrices)} samples generated after {attempts} attempts")
         
+        if len(matrices) < 5000:
+            print("Reducing batch size and epochs due to limited data")
+            
+            global curriculum
+            curriculum = [
+                {**phase, "batch_size": min(phase['batch_size'], 32), "epochs": 50}
+                for phase in curriculum
+            ]
+            
     return np.array(matrices, dtype=np.float32), np.array(inverses, dtype=np.float32)
     
 def preprocessData(x, y):
