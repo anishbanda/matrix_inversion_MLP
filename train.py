@@ -34,7 +34,7 @@ initial_lr = 1e-5
 target_lr = 3e-4
 
 model = MLP(input_size, hidden_size, output_size)
-criterion = nn.SmoothL1Loss(reduction='mean')
+criterion = nn.MSELoss(reduction='mean')
 
 # Custom warmup + cosine annealing scheduler
 optimizer = optim.Adam(model.parameters(), lr=5e-5, weight_decay=1e-6)
@@ -53,6 +53,7 @@ trigger_times = 0
 
 # Step 3: Training Loop
 epochs = 300
+patience = 50
 
 print("Starting Curriculum Learning...")
 
@@ -71,7 +72,7 @@ for phase_idx, phase in enumerate(curriculum):
         print("Reducing batch size and epochs due to limited data")
         phase['batch_size'] = min(phase['batch_size'], 32)
         phase['epochs'] = 100
-        patience = 50
+        patience = 20
     
     # Convert to PyTorch tensors
     x_train_tensor = torch.tensor(x_train, dtype=torch.float32)
