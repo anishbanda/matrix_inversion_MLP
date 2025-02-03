@@ -28,12 +28,9 @@ Designing the MLP architecture was both fun and challenging. I experimented with
 **4. Issues with Training**
 Training the model was where I encountered the most difficulties. The loss plateaued early, and the model failed to generalize often. This led me to:
 
-- Implement learning rate scheduling
-- Eventually removed this and stuck with 0.0003
+- Implement learning rate scheduling (eventually removed it)
 - Apply gradient clipping to prevent gradients
-- Used to fix gradients becoming exceedingly large during training
 - Use early stopping to quit training when improvements stalled
-- To stop the training when loss function plateaued
 
 ## Installation
 
@@ -86,7 +83,7 @@ This compares the model's predicted inverses with actual inverses. Won't be 100%
 
 **3. Loss Plateau**
 
-- Adjusted learning rates and introduced learning rate scheduling
+- Adjusted learning rates
 
 **4. Data Issues**
 
