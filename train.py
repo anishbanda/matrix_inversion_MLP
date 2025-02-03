@@ -38,7 +38,7 @@ model = MLP(input_size, hidden_size, output_size)
 criterion = nn.SmoothL1Loss(reduction='mean')
 
 # Custom warmup + cosine annealing scheduler
-optimizer = optim.Adam(model.parameters(), lr=initial_lr)
+optimizer = optim.Adam(model.parameters(), lr=initial_lr, weight_decay=1e-6)
 scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=50, T_mult=2)
 
 # Early stopping values
