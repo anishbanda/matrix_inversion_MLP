@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.optim.lr_scheduler import CosineAnnealingLR
+from torch.optim.lr_scheduler import CosineAnnealingWarmRestarts
 from MLP import MLP # Import the MLP model
 from data import generateData, preprocessData # Import data functions
 
@@ -39,7 +39,7 @@ criterion = nn.SmoothL1Loss(reduction='mean')
 
 # Custom warmup + cosine annealing scheduler
 optimizer = optim.Adam(model.parameters(), lr=initial_lr)
-scheduler = CosineAnnealingLR(optimizer, T_max=300)
+scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=50, T_mult=2)
 
 # Early stopping values
 best_loss = float('inf')
