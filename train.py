@@ -83,7 +83,7 @@ for epoch in range(epochs):
     if epoch < warmup_epochs:
         lr = initial_lr + (target_lr - initial_lr) * (epoch / warmup_epochs)
         for param_group in optimizer.param_groups:
-            param_group['lr'] = lr
+            param_group['lr'] = 1e-5
     else:   
         scheduler.step() # Adjust learning rate
     
