@@ -49,7 +49,6 @@ curriculum = [
 
 # Early stopping values
 best_loss = float('inf')
-patience = 100
 trigger_times = 0
 
 # Step 3: Training Loop
@@ -64,11 +63,12 @@ for phase_idx, phase in enumerate(curriculum):
     # Generate data for the current phase
     x, y = generateData(num_samples, n, condition_number_range=phase['condition_range'])
     
-    if len(x) < 5000:
+    if len(x_train) < 5000:
         
         print("Reducing batch size and epochs due to limited data")
         phase['batch_size'] = min(phase['batch_size'], 32)
-        phase['epochs'] = 50
+        phase['epochs'] = 100
+        patience = 20
     
     x_train, x_test, y_train, y_test = preprocessData(x, y)
     
