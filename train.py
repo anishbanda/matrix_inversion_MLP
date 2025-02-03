@@ -37,7 +37,7 @@ model = MLP(input_size, hidden_size, output_size)
 criterion = nn.SmoothL1Loss(reduction='mean')
 
 # Custom warmup + cosine annealing scheduler
-optimizer = optim.Adam(model.parameters(), lr=1e-4, weight_decay=1e-8)
+optimizer = optim.Adam(model.parameters(), lr=5e-5, weight_decay=1e-6)
 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)
 
 # Curriculum difficulty levels
@@ -49,7 +49,7 @@ curriculum = [
 
 # Early stopping values
 best_loss = float('inf')
-patience = 50
+patience = 100
 trigger_times = 0
 
 # Step 3: Training Loop
