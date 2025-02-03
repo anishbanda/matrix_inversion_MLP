@@ -62,6 +62,7 @@ for phase_idx, phase in enumerate(curriculum):
     
     # Generate data for the current phase
     x, y = generateData(num_samples, n, condition_number_range=phase['condition_range'])
+    x_train, x_test, y_train, y_test = preprocessData(x, y)
     
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=phase['epochs'])
     
@@ -71,8 +72,6 @@ for phase_idx, phase in enumerate(curriculum):
         phase['batch_size'] = min(phase['batch_size'], 32)
         phase['epochs'] = 100
         patience = 50
-    
-    x_train, x_test, y_train, y_test = preprocessData(x, y)
     
     # Convert to PyTorch tensors
     x_train_tensor = torch.tensor(x_train, dtype=torch.float32)
