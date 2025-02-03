@@ -42,9 +42,9 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)
 
 # Curriculum difficulty levels
 curriculum = [
-    {"condition_range": (1, 10), "epochs": 100, "batch_size": 64}, # Easy
-    {"condition_range": (10, 100), "epochs": 100, "batch_size": 128}, # Medium
-    {"condition_range": (100, 1000), "epochs": 100, "batch_size": 256} # Hard
+    {"condition_range": (1, 50), "epochs": 100, "batch_size": 64}, # Easy
+    {"condition_range": (50, 200), "epochs": 100, "batch_size": 128}, # Medium
+    {"condition_range": (200, 500), "epochs": 100, "batch_size": 256} # Hard
 ]
 
 # Early stopping values
@@ -62,7 +62,7 @@ for phase_idx, phase in enumerate(curriculum):
     print(f"\nPhase {phase_idx + 1}: Condition Number Range {phase['condition_range']}")
     
     # Generate data for the current phase
-    x, y = generateData(num_samples, n, condition_number_range=['condition_range'])
+    x, y = generateData(num_samples, n, condition_number_range=phase['condition_range'])
     x_train, x_test, y_train, y_test = preprocessData(x, y)
     
     # Convert to PyTorch tensors
