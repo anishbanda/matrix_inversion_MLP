@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from torch.optim.lr_scheduler import CosineAnnealingLR
 from MLP import MLP # Import the MLP model
 from data import generateData, preprocessData # Import data functions
 
@@ -28,10 +29,17 @@ input_size = n * n
 hidden_size = 256
 output_size = n * n
 
+# Warmup Scheduler
+warmup_epochs = 10
+initial_lr = 1e-5
+target_lr = 3e-4
+
 model = MLP(input_size, hidden_size, output_size)
-criterion = nn.SmoothL1Loss()
-optimizer = optim.Adam(model.parameters(), lr=0.0003) # Adam Optimizer
-scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.8)
+criterion = nn.SmoothL1Loss(reduction='mean')
+
+# Custom warmup + cosine annealing scheduler
+optimizer = optim.Adam(model.parameters(), lr=initial_lr)
+scheduler = CosineAnnealingLR(optimizer, T_max=300)
 
 # Early stopping values
 best_loss = float('inf')
@@ -44,7 +52,7 @@ batch_size = 64
 
 # Convert dataset to PyTorch DataLoader for batch processing
 train_dataset = torch.utils.data.TensorDataset(x_train_tensor, y_train_tensor)
-train_loader = torch.utils.data.DataLoader(train_dataset, batch_size, shuffle=True)
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
 print("Starting Training...")
 
@@ -65,7 +73,12 @@ for epoch in range(epochs):
         
         total_loss += loss.item()
         
-    scheduler.step() # Adjust learning rate
+    if epoch < warmup_epochs:
+        lr = initial_lr + (target_lr - initial_lr) * (epoch / warmup_epochs)
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+    else:   
+        scheduler.step() # Adjust learning rate
     
     # Calculate average loss per epoch
     avg_loss = total_loss / len(train_loader)
