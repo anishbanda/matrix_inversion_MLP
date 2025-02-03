@@ -1,29 +1,33 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-def generateData(num_samples, n, condition_number_range=(1, 10)):
+def generateData(num_samples, n, condition_number_range=(1, 10), max_attempts=100000):
     
     matrices = []
     inverses = []
+    attempts = 0
     
-    while len(matrices) < num_samples:
+    while len(matrices) < num_samples and attempts < max_attempts:
         A = np.random.randn(n, n)
-        u, s, vh = np.linalg.svd(A)
-        
-        # Control singular values to set condition number
-        min_singular = 1
-        max_singular = condition_number_range[1]
-        s = np.linspace(min_singular, max_singular, n)
-        A = np.dot(u * s, vh)
         
         try:
             A_inv = np.linalg.inv(A)
-            matrices.append(A.flatten())
-            inverses.append(A_inv.flatten())
+            cond_num = np.linalg.cond(A)
+            
+            # Condition number filter
+            if condition_number_range[0] <= cond_num <= condition_number_range[1]:
+                matrices.append(A.flatten())
+                inverses.append(A_inv.flatten())
+                
         except np.linalg.LinAlgError:
-            continue # Skip singular matrices
+            pass
         
-        return np.array(matrices, dtype=np.float32), np.array(inverses, dtype=np.float32)
+        attempts += 1
+        
+    if len(matrices) < num_samples:
+        print(f"Warning: Only {len(matrices)} samples generated after {attempts} attempts")
+        
+    return np.array(matrices, dtype=np.float32), np.array(inverses, dtype=np.float32)
     
 def preprocessData(x, y):
     if (len(x) < 5):
