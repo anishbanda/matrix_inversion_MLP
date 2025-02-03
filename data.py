@@ -1,24 +1,30 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-def generateData(num_samples, n):
+def generateData(num_samples, n, condition_number_range=(1, 10)):
     
     matrices = []
     inverses = []
     
     while len(matrices) < num_samples:
-        A = np.random.randn(n, n) # Generate random matrix
-        try:
-            if np.abs(np.linalg.det(A)) > 0.5:
-                A_inv = np.linalg.inv(A) # Attempt to invert
-                matrices.append(A.flatten()) # Store as flattened array
-                inverses.append(A_inv.flatten()) # Store inverse as flattened array
-            else: pass
-        except np.linalg.LinAlgError:
-            pass
+        A = np.random.randn(n, n)
+        u, s, vh = np.linalg.svd(A)
         
-    return np.array(matrices, dtype=np.float32), np.array(inverses, dtype=np.float32)
-
+        # Control singular values to set condition number
+        min_singular = 1
+        max_singular = condition_number_range[1]
+        s = np.linspace(min_singular, max_singular, n)
+        A = np.dot(u * s, vh)
+        
+        try:
+            A_inv = np.linalg.inv(A)
+            matrices.append(A.flatten())
+            inverses.append(A_inv.flatten())
+        except np.linalg.LinAlgError:
+            continue # Skip singular matrices
+        
+        return np.array(matrices, dtype=np.float32), np.array(inverses, dtype=np.float32)
+    
 def preprocessData(x, y):
     # Split into training and test sets
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
