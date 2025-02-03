@@ -63,6 +63,13 @@ for phase_idx, phase in enumerate(curriculum):
     
     # Generate data for the current phase
     x, y = generateData(num_samples, n, condition_number_range=phase['condition_range'])
+    
+    if len(x) < 5000:
+        
+        print("Reducing batch size and epochs due to limited data")
+        phase['batch_size'] = min(phase['batch_size'], 32)
+        phase['epochs'] = 50
+    
     x_train, x_test, y_train, y_test = preprocessData(x, y)
     
     # Convert to PyTorch tensors
