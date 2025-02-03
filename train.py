@@ -48,10 +48,12 @@ trigger_times = 0
 
 # Step 3: Training Loop
 epochs = 300
-batch_size = 64
+initial_batch_size = 32
+max_batch_size = 256
 
 # Convert dataset to PyTorch DataLoader for batch processing
 train_dataset = torch.utils.data.TensorDataset(x_train_tensor, y_train_tensor)
+batch_size = initial_batch_size
 train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
 print("Starting Training...")
@@ -59,6 +61,11 @@ print("Starting Training...")
 for epoch in range(epochs):
     
     total_loss = 0.0
+    
+    if (epoch % 50 == 0) and (epoch != 0) and (batch_size < max_batch_size):
+        batch_size = min(batch_size * 2, max_batch_size)
+        train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+        print(f"Batch size increased to {batch_size} at epoch {epoch + 1}")
     
     for batch_x, batch_y in train_loader:
         
@@ -85,7 +92,6 @@ for epoch in range(epochs):
         
     # Print loss every 10 epochs
     if (epoch + 1) % 10 == 0:
-        
         print(f"Epoch [{epoch+1}/{epochs}], Loss: {avg_loss:.6f}, LR: {scheduler.get_last_lr()}")
         
     # Early Stopping Check
